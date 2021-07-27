@@ -34,24 +34,30 @@ class BinaryTree:
 
 
     def delete(self,value,node=None):
-
+        
+        # Base case node is none
         if not node:
             return None
+
         if value > node.value:
             node.right = self.delete(value, node=node.right)
         elif value < node.value:               
             node.left = self.delete(value, node=node.left)
         else:
+            # No Child
             if not node.right and not node.left:
                 node = None
+            # Single child on the left
             elif not node.right:
                 node.value = node.left.value
                 node.left  = self.delete(value=node.value,
                                     node=node.left)
+            # Single child on the right
             elif not node.left:
                 node.value = node.right.value
                 node.right = self.delete(value=node.value,
                                     node=node.right)
+            # Both childs
             else:
                 tmp_node   = self.find_minimun(node.right)
                 node.value = tmp_node.value
@@ -67,13 +73,54 @@ class BinaryTree:
         
 
     def find(self,value) -> bool:
-        pass
+        node = self.root
+        while node and node.value != value:
+            if node.value < value:
+                node = node.right
+            else:
+                node = node.left
 
-    def pre_order_trav(self):
-        pass
+        # Node is none
+        if not node:
+            raise ValueError("Value %d is not in the binary tree.",value)
 
-    def post_order_trav(self):
-        pass
+        return node
 
-    def in_order_trav(self):
-        pass
+    def pre_order_trav(self, node: Node = None):
+        if not node:
+            node = self.root
+
+        if node.left and node.right:
+            return [node.value] + self.pre_order_trav(node=node.left) + self.pre_order_trav(node=node.right) 
+        elif node.left: 
+            return [node.value] + self.pre_order_trav(node=node.left) 
+        elif node.right:
+            return [node.value] + self.pre_order_trav(node=node.right)
+        else:
+            return [node.value]
+
+    def post_order_trav(self,node: Node = None):
+        if not node:
+            node = self.root
+
+        if node.left and node.right:
+            return self.post_order_trav(node=node.left) + self.post_order_trav(node=node.right) +  [node.value]
+        elif node.left: 
+            return self.post_order_trav(node=node.left)   +  [node.value]
+        elif node.right:
+            return self.post_order_trav(node=node.right)  +  [node.value]
+        else:
+            return [node.value]
+
+    def in_order_trav(self,node: Node = None):
+        if not node:
+            node = self.root
+
+        if node.left and node.right:
+            return self.in_order_trav(node=node.left) + [node.value] + self.in_order_trav(node=node.right) 
+        elif node.left: 
+            return self.in_order_trav(node=node.left) + [node.value]
+        elif node.right:
+            return self.in_order_trav(node=node.right) + [node.value]
+        else:
+            return [node.value]
