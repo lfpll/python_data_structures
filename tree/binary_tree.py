@@ -39,10 +39,13 @@ class BinaryTree:
         if not node:
             return None
 
+        # Go right if it's bigger
         if value > node.value:
             node.right = self.delete(value, node=node.right)
+        # Go left if it's smaller
         elif value < node.value:               
             node.left = self.delete(value, node=node.left)
+        # Value found
         else:
             # No Child
             if not node.right and not node.left:
