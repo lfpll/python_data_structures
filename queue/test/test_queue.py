@@ -15,9 +15,15 @@ class TestQueueOperations:
         queue.enqueue(5)
         queue.enqueue(3)
         queue.enqueue(2)
+        queue.enqueue(1)
+        queue.enqueue(4)
         assert queue.dequeue() == 5
+        queue.enqueue(6)
         assert queue.dequeue() == 3
         assert queue.dequeue() == 2
+        assert queue.dequeue() == 1
+        assert queue.dequeue() == 4
+        assert queue.dequeue() == 6
 
     def test_peek(self):
         queue = Queue(size=5)
