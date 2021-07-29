@@ -16,12 +16,13 @@ class HashTable:
     def __hash_func(self,key: str,mod:int = 1039) -> int:    
         return sum([(ord(w) % mod) for w in key])
 
-    def __is_in(self,index: int, in_list):
+    def __is_in(self,index: int, in_list) -> bool:
         try:
-            in_list[index]
-            return True
+            if in_list[index]:
+                return True
         except IndexError:
-            return False
+            pass
+        return False
 
     def __get_index(self,key:str):
         hash1 = self.__hash_func(key,mod=1039)
@@ -39,7 +40,7 @@ class HashTable:
         value = None
         
         # Check if exists
-        while self.__is_in(index,self.map) and self.map[index]:
+        while self.__is_in(index,self.map):
             if self.map[index][0] == key:
                 value = self.map[index][1]
                 break
@@ -51,7 +52,7 @@ class HashTable:
         index,incremental = self.__get_index(key)
 
         # Gettig not used index
-        while self.__is_in(index,self.map):
+        while self.__is_in(index,self.map) and self.map[index][0] != key:
             index = index * incremental
         
         # Growing array if index bigger then size
