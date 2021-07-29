@@ -26,3 +26,9 @@ class TestHashMap:
         table.insert(key='ba',value=1)
         assert table.search(key='ab') == 1
         assert table.search(key='ba') == 1
+
+    def test_overwrite(self):
+        table = HashTable()
+        table.insert(key='5',value=1)
+        table.insert(key='5',value=5)
+        assert table.search(key='5') == 5
