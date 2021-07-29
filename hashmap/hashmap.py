@@ -18,8 +18,8 @@ class HashTable:
 
     def __is_in(self,index: int, in_list):
         try:
-
-            return in_list[index]
+            in_list[index]
+            return True
         except IndexError:
             return False
 
@@ -30,27 +30,29 @@ class HashTable:
 
     def __grow_array(self,new_min_size:int):
         tmp = [None] * nextprime(new_min_size)
-        for x in range(self.size):
-            tmp[x] = self.map[x]
+        for i,x in enumerate(self.map):
+            tmp[i] = x
         self.map = tmp
         
     def search(self,key:str):
-        index,hash2 = self.__get_index(key)
+        index,incremental = self.__get_index(key)
         value = None
-        while self.__is_in(index,self.map):
+        
+        # Check if exists
+        while self.__is_in(index,self.map) and self.map[index]:
             if self.map[index][0] == key:
                 value = self.map[index][1]
                 break
-            index = index * hash2    
+            index = index * incremental    
 
         return value
 
     def insert(self,key:str,value):
-        index,hash2 = self.__get_index(key)
+        index,incremental = self.__get_index(key)
 
         # Gettig not used index
         while self.__is_in(index,self.map):
-            index = index * hash2
+            index = index * incremental
         
         # Growing array if index bigger then size
         if self.size < index:
@@ -60,9 +62,8 @@ class HashTable:
         self.map[index] = (key,value)
 
     def delete(self,key:str):
-        index,hash2 = self.__get_index(key)
-
+        index,incremental = self.__get_index(key)
         while self.__is_in(index,self.map) and  self.map[index][0] != key:
-            index = index * hash2  
+            index = index * incremental  
 
         self.map[index] = None

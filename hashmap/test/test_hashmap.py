@@ -19,3 +19,10 @@ class TestHashMap:
         assert table.search(key='5')
         table.delete(key='5')
         assert not table.search(key='5')
+    
+    def test_colision(self):
+        table = HashTable()
+        table.insert(key='ab',value=1)
+        table.insert(key='ba',value=1)
+        assert table.search(key='ab') == 1
+        assert table.search(key='ba') == 1
