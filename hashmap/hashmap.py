@@ -30,7 +30,7 @@ class HashTable:
         return hash1+hash2,hash2 
 
     def __grow_array(self,new_min_size:int):
-        tmp = [None] * nextprime(new_min_size)
+        tmp = [None] * nextprime(new_min_size+1)
         for i,x in enumerate(self.map):
             tmp[i] = x
         self.map = tmp
