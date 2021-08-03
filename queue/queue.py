@@ -7,6 +7,9 @@ class Queue:
         self.rear    = size - 1
         self.front   = self.current_size = 0
 
+    def __cmp__(self):
+        return self.queue[self.front] is not None
+
     def is_empty(self) -> bool:
         return self.current_size == 0
     
@@ -29,6 +32,7 @@ class Queue:
             raise Exception("Queue is empty")
         self.current_size -= 1
         item = self.queue[self.front]
+        self.queue[self.front] = None
         self.front = (self.front + 1 ) % self.size
         return item
 
