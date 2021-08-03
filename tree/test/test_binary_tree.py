@@ -1,29 +1,28 @@
-from tree.binary_tree import BinaryTree
+from tree.binary_search_tree import BinarySearchTree
 import pytest
 
-
-class TestBinaryTree:
+class TestSearchBinaryTree:
 
     def test_insert(self):
-        tree = BinaryTree()
+        tree = BinarySearchTree()
         tree.insert(1)
         assert tree.root.value == 1
 
     def test_find(self):
-        tree = BinaryTree()
+        tree = BinarySearchTree()
         tree.insert(1)
         tree.insert(2)
         assert 2 == tree.find(2).value 
         
     def test_inexistend_value(self):
-        tree = BinaryTree()
+        tree = BinarySearchTree()
         tree.insert(1)
         with pytest.raises(ValueError) as error:
             tree.find(2)
             assert str(error.value) == ("Value %d is not in the binary tree.",2)
 
     def test_delete(self):
-        tree = BinaryTree()
+        tree = BinarySearchTree()
         tree.insert(10)
         tree.insert(5)
         tree.insert(7)
@@ -52,7 +51,7 @@ class TestBinaryTree:
     
     
     def test_in_order_trav(self):
-        tree = BinaryTree()
+        tree = BinarySearchTree()
         tree.insert(10)
         tree.insert(5)
         tree.insert(7)
@@ -64,7 +63,7 @@ class TestBinaryTree:
 
 
     def test_pre_order_trav(self):
-        tree = BinaryTree()
+        tree = BinarySearchTree()
         tree.insert(10)
         tree.insert(5)
         tree.insert(7)
@@ -77,7 +76,7 @@ class TestBinaryTree:
 
 
     def test_post_order_trav(self):
-        tree = BinaryTree()
+        tree = BinarySearchTree()
         tree.insert(10)
         tree.insert(5)
         tree.insert(7)

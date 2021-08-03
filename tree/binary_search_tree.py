@@ -5,7 +5,7 @@ class Node:
     def __init__(self,value):
         self.value = value
 
-class BinaryTree:
+class BinarySearchTree:
 
     def __init__(self):
         self.root = None
