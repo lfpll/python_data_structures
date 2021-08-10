@@ -1,4 +1,5 @@
 from tree.binary_search_tree import BinarySearchTree
+from tree.avl_tree import AvlBinaryTree
 import pytest
 
 class TestSearchBinaryTree:
@@ -85,4 +86,46 @@ class TestSearchBinaryTree:
         tree.insert(13)
         tree.insert(17)
         assert [3,7,5,13,17,15,10] == tree.post_order_trav()
-        
+
+
+class TestAvlBinaryTree:
+    
+
+    def test_left_rotation(self):
+        tree = AvlBinaryTree()
+        tree.insert(20,tree.root)
+        tree.insert(21,tree.root)
+        tree.insert(22,tree.root)
+        assert tree.root.value == 21
+        assert tree.root.left.value == 20
+        assert tree.root.right.value == 22
+
+    def test_left_right_rotation(self):
+        tree = AvlBinaryTree()
+        tree.insert(10,tree.root)
+        tree.insert(8,tree.root)
+        tree.insert(9,tree.root)
+        assert tree.root.value == 9
+        assert tree.root.left.value == 8
+        assert tree.root.right.value == 10
+
+    def test_right_rotation(self):
+        tree = AvlBinaryTree()
+        tree.insert(10,tree.root)
+        tree.insert(8,tree.root)
+        tree.insert(7,tree.root)
+        assert tree.root.value == 8
+        assert tree.root.left.value == 7
+        assert tree.root.right.value == 10
+
+
+    def test_right_left_rotation(self):
+        tree = AvlBinaryTree()
+        tree.insert(20,tree.root)
+        tree.insert(22,tree.root)
+        tree.insert(21,tree.root)
+        assert tree.root.value == 21
+        assert tree.root.left.value == 20
+        assert tree.root.right.value == 22
+
+    
