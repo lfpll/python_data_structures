@@ -1,5 +1,6 @@
 from tree.binary_search_tree import BinarySearchTree
 from tree.avl_tree import AvlBinaryTree
+from tree.max_heap import MaxHeapArray
 import pytest
 
 class TestSearchBinaryTree:
@@ -128,4 +129,95 @@ class TestAvlBinaryTree:
         assert tree.root.left.value == 20
         assert tree.root.right.value == 22
 
+
+class TestMaxHeapArray:
+
+    def test_pop(self):
+        heap = MaxHeapArray()
+        heap.insert(1)
+        heap.insert(2)
+        heap.insert(3)
+        assert heap.pop() == 3
+
+
+    def test_insert(self):
+        heap = MaxHeapArray()
+        heap.nodes = []
+        heap.insert(1)
+        heap.insert(2)
+        heap.insert(3)
+        assert heap.nodes == [3,2,1]
+
+    def test_delete(self):
+        heap = MaxHeapArray()
+        heap.nodes = []
+        heap.insert(1)
+        heap.insert(2)
+        heap.insert(3)
+        heap.delete(1)
+        assert heap.nodes[0] == 3
+        assert heap.nodes[1] == 2
+        heap.insert(5)
+        assert heap.nodes[0] == 5
+        assert heap.nodes[1] == 3
+        assert heap.nodes[2] == 2
     
+    def test_swap(self):
+        heap = MaxHeapArray()
+        heap.nodes = []
+        heap.insert(1)
+        heap.insert(2)
+        heap.swap(0,1)
+        assert heap.nodes[0] == 1
+        assert heap.nodes[1] == 2
+
+    def test_get_parent(self):
+        heap = MaxHeapArray()
+        heap.nodes = []
+        heap.insert(1)
+        heap.insert(3)
+        heap.insert(2)
+        assert heap.nodes[0] == 3
+        assert heap.nodes[1] == 2
+        assert heap.nodes[2] == 1
+        assert heap.parent(1) == 3
+    
+    def test_left_child(self):
+        heap = MaxHeapArray()
+        heap.nodes = []
+        heap.insert(1)
+        heap.insert(3)
+        heap.insert(2)
+        assert heap.nodes[0] == 3
+        assert heap.nodes[1] == 2
+        assert heap.nodes[2] == 1
+        assert heap.left_child_index(0) == 1
+
+    def test_right_child(self):
+        heap = MaxHeapArray()
+        heap.nodes = []
+        heap.insert(1)
+        heap.insert(3)
+        heap.insert(2)
+        assert heap.nodes[0] == 3
+        assert heap.nodes[1] == 2
+        assert heap.nodes[2] == 1
+        assert heap.right_child_index(0) == 2
+
+    def test_multi_funs(self):
+        heap = MaxHeapArray()
+        heap.nodes = []
+        heap.insert(1)
+        heap.insert(2)
+        heap.insert(3)
+        heap.delete(1)
+        
+        assert heap.nodes[0] == 3
+        assert heap.nodes[1] == 2
+        assert heap.size == 2
+        heap.insert(5)
+        assert heap.nodes[0] == 5
+        assert heap.pop() == 5
+        heap.delete(3) 
+        assert heap.pop() == 2
+        
